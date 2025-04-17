@@ -35,6 +35,18 @@ class TestCalculoNumeros(unittest.TestCase):
         from src.exceptions import NumeroDebeSerPositivo
         with self.assertRaises(NumeroDebeSerPositivo):
             ingrese_numero()
+    def test_ingreso_letras(self, patch_input):
+        """Prueba el caso de ingreso de texto no numérico."""
+        from src.calculo_numeros import ingrese_numero
+        with self.assertRaises(ValueError):
+            ingrese_numero()
+            
+    @patch('builtins.input', return_value='123abc')
+    def test_ingreso_alfanumerico(self, patch_input):
+        """Prueba el caso de ingreso de texto alfanumérico."""
+        from src.calculo_numeros import ingrese_numero
+        with self.assertRaises(ValueError):
+            ingrese_numero()       
 
 if __name__ == '__main__':
     unittest.main()
